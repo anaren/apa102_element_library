@@ -53,6 +53,26 @@ void APA102_WriteLEDFrame(uint8_t brightness, uint8_t red, uint8_t green, uint8_
 	AIR_SPI_Write(-1, tempData, 4);
 }
 
+// typedef void (*AIR_LEDAnimateCallback_ptr)(unsigned int frame, unsigned int currentColumn, unsigned int currentRow, unsigned int totalColumns, unsigned int totalRows, void *args, uint8_t *brightness, uint8_t *red, uint8_t *green, uint8_t *blue);
 void APA102_Animate(AIR_LEDAnimateCallback_ptr animation, unsigned int frame, unsigned int numberOfLEDs, unsigned int numberOfLEDsPerRow, void *args)
 {
+	APA102_WriteStartFrame();
+	
+	unsigned int i = 0;
+	unsigned int totalNumberOfRows = numberOfLEDs / numberOfLEDsPerRow;
+	
+	for(i; i < numberOfLEDs; i++)
+	{
+		uint8_t tempBrightness = 0;
+		uint8_t tempRed = 0;
+		uint8_t tempGreen = 0;
+		uint8_t tempBlue = 0;
+		unsigned int currentColumn = i % numberOfLEDsPerRow;
+		unsigned int currentRow = i / numberOfLEDsPerRow;
+		
+		(*animation)(frame, currentColumn, currentRow, numberOfLEDsPerRow, totalNumberOfRows, args, &tempBrightness, &tempRed, &tempGreen, &tempBlue);
+		APA102_WriteLEDFrame(tempBrightness, tempRed, tempGreen, tempBlue);
+	}
+	
+	APA102_WriteEndFrame();
 }
