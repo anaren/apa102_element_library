@@ -42,6 +42,9 @@ void APA102_WriteEndFrame()
 
 void APA102_WriteLEDFrame(uint8_t brightness, uint8_t red, uint8_t green, uint8_t blue)
 {
+	//We need to scale our 8-bit brightness to the 5-bit brightness value this led takes
+	brightness = 0xe0 | ((brightness/0xff) * 0x1f);
+	
 	//Each frame is constructed as brightness, blue, green and red.
 	//[ 3-bit all 1s][ 5-bit for brightness ][ 8-bits for blue ][ 8-bits for green ][ 8-bits for red ]
 	uint8_t tempData[4];
