@@ -1,0 +1,32 @@
+{
+	"type": "Embedded Library",
+	"label": "APA102 Driver",
+	"language": {
+		"en": {
+			"label": "APA102 Driver"
+		}
+	},
+	"name": "apa102",
+	"author": "Anaren Inc.",
+	"manufacturer":"",
+	"description":"",
+	"signature": "",
+	"version": "1.0.0",
+	
+	"code": {
+		"global" : "",
+		"setup" : "" 
+	},
+	
+	"elements": {
+	},
+	
+	"categories":["Temperature", "Sensor"],
+	
+	
+	"links":{
+		"Product Page":"http://",
+		"Datasheet":"http://",
+		"Wiki Page":"https://atmosphere.anaren.com/wiki/APA102_Driver"
+	}
+}
