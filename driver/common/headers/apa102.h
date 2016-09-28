@@ -50,6 +50,6 @@ void APA102_WriteEndFrame();
 
 void APA102_WriteLEDFrame(uint8_t brightness, uint8_t red, uint8_t green, uint8_t blue);
 
-void APA102_Animate(AIR_LEDAnimateCallback_ptr animation, unsigned int frame, unsigned int numberOfLEDs, unsigned int numberOfLEDsPerRow, void *args);
+void APA102_Animate(AIR_LEDAnimateCallback_ptr animation, unsigned int frame, unsigned int numberOfLEDs, unsigned int numberOfLEDsPerRow, bool serpentine, void *args);
 
 #endif  /* APA102_H */

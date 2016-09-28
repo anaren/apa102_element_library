@@ -57,7 +57,7 @@ void APA102_WriteLEDFrame(uint8_t brightness, uint8_t red, uint8_t green, uint8_
 }
 
 // typedef void (*AIR_LEDAnimateCallback_ptr)(unsigned int frame, unsigned int currentColumn, unsigned int currentRow, unsigned int totalColumns, unsigned int totalRows, void *args, uint8_t *brightness, uint8_t *red, uint8_t *green, uint8_t *blue);
-void APA102_Animate(AIR_LEDAnimateCallback_ptr animation, unsigned int frame, unsigned int numberOfLEDs, unsigned int numberOfLEDsPerRow, void *args)
+void APA102_Animate(AIR_LEDAnimateCallback_ptr animation, unsigned int frame, unsigned int numberOfLEDs, unsigned int numberOfLEDsPerRow, bool serpentine, void *args)
 {
 	if(animation == NULL) 
 	{
@@ -75,8 +75,13 @@ void APA102_Animate(AIR_LEDAnimateCallback_ptr animation, unsigned int frame, un
 		uint8_t tempRed = 0;
 		uint8_t tempGreen = 0;
 		uint8_t tempBlue = 0;
-		unsigned int currentColumn = i % numberOfLEDsPerRow;
 		unsigned int currentRow = i / numberOfLEDsPerRow;
+		unsigned int currentColumn = i % numberOfLEDsPerRow;
+		
+		if(serpentine && currentRow % 2)
+		{
+			currentColumn = numberOfLEDsPerRow - currentColumn;
+		}
 		
 		(*animation)(frame, currentColumn, currentRow, numberOfLEDsPerRow, totalNumberOfRows, args, &tempBrightness, &tempRed, &tempGreen, &tempBlue);
 		APA102_WriteLEDFrame(tempBrightness, tempRed, tempGreen, tempBlue);
