@@ -26,6 +26,7 @@
 // either expressed or implied, of the FreeBSD Project.
 
 #include "apa102.h"
+#include <stddef.h>
 
 const uint8_t startFrame[] = {0x00, 0x00, 0x00, 0x00};
 const uint8_t endFrame[] = {0xff, 0xff, 0xff, 0xff};
