@@ -70,6 +70,11 @@ void APA102_Animate(AIR_LEDAnimateCallback_ptr animation, unsigned int frame, un
 	unsigned int i = 0;
 	unsigned int totalNumberOfRows = numberOfLEDs / numberOfLEDsPerRow;
 	
+	if(numberOfLEDsPerRow == 0)
+	{
+		numberOfLEDsPerRow = numberOfLEDs;
+	}
+	
 	for(i; i < numberOfLEDs; i++)
 	{
 		uint8_t tempBrightness = 0;
