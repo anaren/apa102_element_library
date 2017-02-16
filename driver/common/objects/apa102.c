@@ -33,12 +33,12 @@ const uint8_t endFrame[] = {0xff, 0xff, 0xff, 0xff};
 
 void APA102_WriteStartFrame()
 {
-	AIR_SPI_Write(-1, startFrame, 4);
+	AIR_SPI_Write(-1, (unsigned char *)startFrame, 4);
 }
 
 void APA102_WriteEndFrame()
 {
-	AIR_SPI_Write(-1, endFrame, 4);
+	AIR_SPI_Write(-1, (unsigned char *)endFrame, 4);
 }
 
 void APA102_WriteLEDFrame(uint8_t brightness, uint8_t red, uint8_t green, uint8_t blue)
@@ -67,7 +67,7 @@ void APA102_Animate(AIR_LEDAnimateCallback_ptr animation, unsigned int frame, un
 	
 	APA102_WriteStartFrame();
 	
-	unsigned int i = 0;
+	unsigned int i;
 	unsigned int totalNumberOfRows = numberOfLEDs / numberOfLEDsPerRow;
 	
 	if(numberOfLEDsPerRow == 0)
@@ -75,7 +75,7 @@ void APA102_Animate(AIR_LEDAnimateCallback_ptr animation, unsigned int frame, un
 		numberOfLEDsPerRow = numberOfLEDs;
 	}
 	
-	for(i; i < numberOfLEDs; i++)
+	for(i = 0; i < numberOfLEDs; i++)
 	{
 		uint8_t tempBrightness = 0;
 		uint8_t tempRed = 0;
