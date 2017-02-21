@@ -36,7 +36,7 @@ void APA102_WriteStartFrame()
 	AIR_SPI_Write(-1, (unsigned char *)startFrame, 4);
 }
 
-void APA102_WriteEndFrame()
+void APA102_WriteEndFrame(unsigned int numberOfLeds)
 {
 	AIR_SPI_Write(-1, (unsigned char *)endFrame, 4);
 }
@@ -44,7 +44,7 @@ void APA102_WriteEndFrame()
 void APA102_WriteLEDFrame(uint8_t brightness, uint8_t red, uint8_t green, uint8_t blue)
 {
 	//We need to scale our 8-bit brightness to the 5-bit brightness value this led takes
-	brightness = 0xe0 | ((brightness/0xff) * 0x1f);
+	brightness =  0xe0 | (brightness & 0x1f);
 	
 	//Each frame is constructed as brightness, blue, green and red.
 	//[ 3-bit all 1s][ 5-bit for brightness ][ 8-bits for blue ][ 8-bits for green ][ 8-bits for red ]
@@ -93,5 +93,5 @@ void APA102_Animate(AIR_LEDAnimateCallback_ptr animation, unsigned int frame, un
 		APA102_WriteLEDFrame(tempBrightness, tempRed, tempGreen, tempBlue);
 	}
 	
-	APA102_WriteEndFrame();
+	APA102_WriteEndFrame(numberOfLEDs);
 }

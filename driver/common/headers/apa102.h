@@ -46,7 +46,7 @@ typedef void (*AIR_LEDAnimateCallback_ptr)(unsigned int frame, unsigned int curr
 
 void APA102_WriteStartFrame();
 
-void APA102_WriteEndFrame();
+void APA102_WriteEndFrame(unsigned int numberOfLeds);
 
 void APA102_WriteLEDFrame(uint8_t brightness, uint8_t red, uint8_t green, uint8_t blue);
 
